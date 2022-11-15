@@ -12,8 +12,8 @@ int ft_x(unsigned int, int, char *);
 int pr(char *format, ...)
 {
     int i = 0, len = 0;
-
     va_list l;
+
     va_start(l, format);
     while (format[i])
     {
@@ -41,8 +41,10 @@ int ft_s(char *s)
 {
     int strlen = 0;
     
-    if (!*s)
-        return (write(1, "(null)", 6));
+    if (s != NULL && !*s)
+        return strlen;
+    if (s == NULL)
+        return (write(1, "(error)", 7));
     while(s[++strlen]) ;
     return (write(1, s, strlen));
 }
@@ -64,7 +66,7 @@ int ft_i(int n)
 
     if (n == -2147483648)
         return write(1, "-2147483648", 11);
-    else if (n < 0)
+    if (n < 0)
     {
         n = -n;
         i += write(1, "-", 1);
